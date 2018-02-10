@@ -48,8 +48,6 @@ listofstrings = ["08 02 22 97 38 15 00 40 00 75 04 05 07 78 52 12 50 77 91 08",
 "20 73 35 29 78 31 90 01 74 31 49 71 48 86 81 16 23 57 05 54",
 "01 70 54 71 83 51 54 69 16 92 33 48 61 43 52 01 89 19 67 48"]
 
-#from functools import reduce
-
 intarray= []
 for i in listofstrings:
     intarray.append([int(j) for j in i.split()])
@@ -57,23 +55,19 @@ for i in listofstrings:
 horproducts = []
 vertproducts = []
 diagswproducts = []
-diagnwproducts = []
-possibilities = []
-
+diagseproducts = []
 
 from numpy import prod
 def highestproduct(x):
-    for i in range(0,len(intarray[0])): #anchors the window and moves it horizontally
-        for j in range(0, len(intarray) - x): #moves anchor vertically
-            vertproducts.append(prod([a for a in [intarray[i][j+k] for k in range(0,x)]]))  #k is vert window
-    for i in range(0,len(intarray)):
-        for j in range(0,len(intarray[0])-x):
-            horproducts.append(prod([a for a in [intarray[j+k][i] for k in range(0,x)]])) #k is horizontal window
-    for i in range(0, len(intarray) - x):
-        for j in range(0, len(intarray[0])-x):
+    for i in range(0,len(intarray[0])-x):
+        for j in range(0,len(intarray)):
+            horproducts.append(prod([a for a in [intarray[i+k][j] for k in range(0,x)]]))
+        for j in range(0, len(intarray) - x):
             diagswproducts.append(prod([a for a in [intarray[i+k][j+k] for k in range(0,x)]])) #k is diaganol window
-    for i in range(len(intarray)-1, x, -1):
-        for j in range(0, len(intarray[0])-x):
-            diagnwproducts.append(prod([a for a in [intarray[i-k][j+k] for k in range(0,x)]]))
-    return max(max([diagnwproducts, diagswproducts, horproducts, vertproducts]))
+    for i in range(0, len(intarray) - x):
+        for j in range(0,len(intarray[0])): #anchors the window and moves it horizontally
+            vertproducts.append(prod([a for a in [intarray[j][i+k] for k in range(0,x)]]))  #k is vert window
+        for j in range(x, len(intarray[0])):
+            diagseproducts.append(prod([a for a in [intarray[i+k][j-k] for k in range(0,x)]]))
+    return max(max([diagseproducts, diagswproducts, horproducts, vertproducts]))
 print(highestproduct(4))
