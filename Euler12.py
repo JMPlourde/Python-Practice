@@ -1,22 +1,24 @@
 from math import sqrt
-def trinum(x):
-    z = 1 #length of bottom row of dots
-    y = 0 #total dots
+
+def numoffacs(a,b):
     factors = 0 #number of factors
-    while factors<x:
+    while factors<a:
         factors = 0
         n = 1
-        while n<=int(sqrt(y)):
-            if y%n==0:
+        while n<=int(sqrt(b)):
+            if b%n==0:
                 factors+=2
-                n+=1
-            else:
-                n+=1
+            n+=1
         n = 1
-        if factors<x:
-            y=y+z
-            z += 1        
+        return factors        
+
+def trinum(x):
+    z = 1 #length of bottom row of dots
+    y = 0 #total dots  
+    while numoffacs(x,y)<x:
+        y=y+z
+        z += 1
+        print(y)
     return y
 print(trinum(500))  
-
-            
+        
