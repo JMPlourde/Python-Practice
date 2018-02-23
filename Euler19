@@ -1,0 +1,42 @@
+#1 Jan 1900 was a Monday.
+#Thirty days has September,
+#April, June and November.
+#All the rest have thirty-one,
+#Saving February alone,
+#Which has twenty-eight, rain or shine.
+#And on leap years, twenty-nine.
+#A leap year occurs on any year evenly divisible by 4, but not on a century unless it is divisible by 400.
+#How many Sundays fell on the first of the month during the twentieth century (1 Jan 1901 to 31 Dec 2000)?
+
+def month(x):
+    jan = 31
+    march = 31
+    april = 30
+    may = 31
+    june = 30
+    july = 31
+    aug = 31
+    sept = 30
+    octo = 31
+    nov = 30
+    dec = 31
+    if year%4 != 0 or year%100==0:
+        feb = 28
+    else: 
+        feb = 29
+
+def week(x):
+    day[0] = "Sunday"
+    day[1] = "Monday"
+    day[2] = "Tuesday"
+    day[3] = "Wednesday"
+    day[4] = "Thursday"
+    day[5] = "Friday"
+    day[6] = "Saturday"
+    for day in time:
+        day = daynum%7    
+
+for day in rangetime:
+    Moncount = 0
+    date
+    if day1 in month == "Monday"
