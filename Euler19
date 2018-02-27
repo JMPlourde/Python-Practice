@@ -8,35 +8,68 @@
 #A leap year occurs on any year evenly divisible by 4, but not on a century unless it is divisible by 400.
 #How many Sundays fell on the first of the month during the twentieth century (1 Jan 1901 to 31 Dec 2000)?
 
-def month(x):
-    jan = 31
-    march = 31
-    april = 30
-    may = 31
-    june = 30
-    july = 31
-    aug = 31
-    sept = 30
-    octo = 31
-    nov = 30
-    dec = 31
-    if year%4 != 0 or year%100==0:
-        feb = 28
-    else: 
-        feb = 29
+def monthofyear(x,y):#pass dayofyear as x, year as y
+    if x <31: #feb
+        x+=31
+    elif x <59: #march
+        if y%400==0:
+            x+=29
+        elif y%4 != 0 or y%100==0:
+            x+=28
+        else:
+            x+=29
+    elif x <90: #april
+        x+=31
+    elif x<120: #may
+        x+=30
+    elif x<151: #june
+        x+=31
+    elif x<181: #july
+        x+=30
+    elif x<212: #aug
+        x+=31
+    elif x<242: #sep
+        x+=30
+    elif x<273: #oct
+        x+=31
+    elif x<30: #nov
+        x+=30
+    else: #dec
+        x+=31
+    return x
 
-def week(x):
-    day[0] = "Sunday"
-    day[1] = "Monday"
-    day[2] = "Tuesday"
-    day[3] = "Wednesday"
-    day[4] = "Thursday"
-    day[5] = "Friday"
-    day[6] = "Saturday"
-    for day in time:
-        day = daynum%7    
+def weekday(x):
+    if x == "Sunday" or x =="sunday":
+        return 0
+    if x == "Monday" or x=="monday":
+        return 1
+    if x == "Tuesday" or x=="tuesday":
+        return 2
+    if x == "Wednesday" or x=="wednesday":
+        return 3
+    if x == "Thursday" or x =="thursday":
+        return 4
+    if x == "Friday" or x =="friday":
+        return 5
+    if x == "saturday" or x =="Saturday":
+        return 6    
+    
+def weekdaysinfirstmonths(x,y,yearS,year1,year2):#pass x day of week, y as startday, yearS as startyear, year 1 as first year counted, year2 as lastyear  
+    x=weekday(x)
+    y=weekday(y)
+    countofdays = y
+    count = 0
+    while yearS<=year2:
+        if monthofyear(countofdays,yearS) >= 365:
+            yearS +=1
+            countofdays = countofdays%7
+        if countofdays%7==x and yearS >=year1 and yearS<=year2:
+            count+=1
+            countofdays = monthofyear(countofdays,yearS)
+        else:
+            countofdays = monthofyear(countofdays,yearS)
+        
+    print(count)
+        
 
-for day in rangetime:
-    Moncount = 0
-    date
-    if day1 in month == "Monday"
+weekdaysinfirstmonths("Sunday", "Monday", 1900,1901,2000)
