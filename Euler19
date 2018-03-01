@@ -8,83 +8,20 @@
 #A leap year occurs on any year evenly divisible by 4, but not on a century unless it is divisible by 400.
 #How many Sundays fell on the first of the month during the twentieth century (1 Jan 1901 to 31 Dec 2000)?
 
-def monthofyear(x,y):#pass dayofyear as x, year as y
-    if y%400==0:
-        if x <7: #jan-feb days 1-30 +6 
-            x+=31 #31-37
-        elif x>=31 and x<=37:#feb -> march leap year 
-            x+=29 #60-66
-        elif x>=60 and x<=66: # march -april
-            x+=31 #91-97
-        elif x>=91 and x<=97: #april-may
-            x+=30 #121-127
-        elif x>=121 and x<=127: #may-june
-            x+=31 #152-158
-        elif x>=152 and x<=158: #june-july
-            x+=30 #182-188
-        elif x>=182 and x<=188: #july-aug
-            x+=31 #213-219
-        elif x>=213 and x<=219: #aug-sep
-            x+=31 #244-250
-        elif x>=244 and x<=250: #sep-oct
-            x+=30 #274-280
-        elif x>=274 and x<=280: #oct-nov
-            x+=31 #305-311
-        elif x>=305 and x<=311: #nov-dec
-            x+=30 #335-341
-        elif x>=335 and x<=341: #dec to jan
-            x+=31 #366-372
-    elif y%4!=0 or  y%100==0:
-        if x <7: #jan-feb  
-            x+=31 #31-37
-        elif x>=31 and x<=37:#feb -> march leap year 
-            x+=28 #59-65
-        elif x>=59 and x<=65: # march -april
-            x+=31 #90-96
-        elif x>=90 and x<=96: #april-may
-            x+=30 #120-126
-        elif x>=120 and x<=126: #may-june
-            x+=31 #151-157
-        elif x>=151 and x<=157: #june-july
-            x+=30 #181-187
-        elif x>=181 and x<=187: #july-aug
-            x+=31 #212-218
-        elif x>=212 and x<=218: #aug-sep
-            x+=31 #243-249
-        elif x>=243 and x<=249: #sep-oct
-            x+=30 #273-279
-        elif x>=273 and x<=279: #oct-nov
-            x+=31 #304-310
-        elif x>=304 and x<=310: #nov-dec
-            x+=30 #334-340
-        elif x>=334 and x<=340: #dec to jan
-            x+=31 #365-371                
+months = ['jan','feb','march','april','may','june','july','aug','sept','oct','nov','dec']
+monthlen = {"jan":31,"feb":28,"march":31,"april":30,"may":31,"june":30,"july":31,"aug":31,"sept":30,"oct":31,"nov":30,'dec':31}
+
+def leapyear(year):
+    if year%400==0:
+        if year%100==0:
+            if year%4==0:
+                return True
+            else: 
+                return False
+        else: 
+            return True
     else:
-        if x <7: #jan-feb days 1-30 +6 
-            x+=31 #31-37
-        elif x>=31 and x<=37:#feb -> march leap year 
-            x+=29 #60-66
-        elif x>=60 and x<=66: # march -april
-            x+=31 #91-97
-        elif x>=91 and x<=97: #april-may
-            x+=30 #121-127
-        elif x>=121 and x<=127: #may-june
-            x+=31 #152-158
-        elif x>=152 and x<=158: #june-july
-            x+=30 #182-188
-        elif x>=182 and x<=188: #july-aug
-            x+=31 #213-219
-        elif x>=213 and x<=219: #aug-sep
-            x+=31 #244-250
-        elif x>=244 and x<=250: #sep-oct
-            x+=30 #274-280
-        elif x>=274 and x<=280: #oct-nov
-            x+=31 #305-311
-        elif x>=305 and x<=311: #nov-dec
-            x+=30 #335-341
-        elif x>=335 and x<=341: #dec to jan
-            x+=31 #366-372
-    return x
+        return False
 
 def weekday(x):
     if x == "Sunday" or x =="sunday":
@@ -102,18 +39,18 @@ def weekday(x):
     if x == "saturday" or x =="Saturday":
         return 6    
     
-def weekdaysinfirstmonths(day,y,yearS,year1,year2):#pass x day of week, y as startday, yearS as startyear, year 1 as first year counted, year2 as lastyear  
+def weekdaysinfirstofmonth(day,y,yearS,year1,year2):#pass x day of week, y as startday, yearS as startyear, year 1 as first year counted, year2 as lastyear  
     y=weekday(y)
-    countofdays = y
     count = 0
     while yearS<=year2:
-        if monthofyear(countofdays,yearS) >= 365:
-            countofdays = monthofyear(countofdays,yearS)%7
-            yearS +=1
-        else:
-            countofdays = monthofyear(countofdays,yearS)
-        if countofdays%7 == weekday(day) and yearS >=year1 and yearS<=year2:
-            count+=1
+        for month in months:
+            y+=monthlen[month]
+            if monthlen[month] == "feb" and leapyear(yearS):
+                y+=1
+            if y%7 == weekday(day) and yearS >=year1 and yearS<=year2:
+                count+=1
+        yearS+=1
+            
     print(count)
         
-weekdaysinfirstmonths("Sunday", "Monday", 1900,1901,2000) #order: day to be counted, first weekday of startyear, startyear, first year to count, last year to count 
+weekdaysinfirstofmonth("Sunday", "Monday", 1900,1901,2000) #order: day to be counted, first weekday of startyear, startyear, first year to count, last year to count 
