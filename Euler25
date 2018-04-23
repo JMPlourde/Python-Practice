@@ -8,7 +8,7 @@ def fib(x):
     while lenoffib(fibseq[i]) < x:
         i+=1
         fibseq[i] = fibseq[i-2]+fibseq[i-1]
-    return i+1
+    return i
 
 
 print(fib(1000))
