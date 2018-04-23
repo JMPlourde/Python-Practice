@@ -1,0 +1,14 @@
+
+fibseq = {1:1,2:1}
+def lenoffib(x):
+    return len(str(x))
+
+def fib(x):
+    i = 2
+    while lenoffib(fibseq[i]) < x:
+        i+=1
+        fibseq[i] = fibseq[i-2]+fibseq[i-1]
+    return i+1
+
+
+print(fib(1000))
